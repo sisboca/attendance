@@ -1,0 +1,53 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="faculty_grade_form">
+            <field name="name">op.grade.faculty.form</field>
+            <field name="model">op.grade.faculty</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group colspan="4" col="4">
+                                <field name ="session"/>
+                                <field name ="course"/>
+                                <field name ="faculty"/>
+                                <field name ="batch"  context="{'course_id': course,'get_parent_batch':1}"/>
+                                <field name ="subject"/>
+                            </group>
+                            <field name="students_grade" colspan="4" nolabel="1">
+                                <tree string="Student Grades" editable="top">
+                                    <field name="student"/>
+                                    <field name="attendance_grade"/>
+                                    <field name="daily_grade"/>
+                                    <field name="homework_grade"/>
+                                    <field name="exam_grade"/>
+                                    <field name="final_grade"/>
+                                </tree>
+                            </field>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="faculty_grade_tree">
+            <field name="name">op.grade.faculty.tree</field>
+            <field name="model">op.grade.faculty</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name ="session"/>
+                    <field name ="faculty"/>
+                    <field name ="course"/>
+                    <field name ="batch"/>
+                    <field name ="subject"/>
+                    <field name ="students_grade"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="faculty_grade_action">
+            <field name="name">Faculty Grade</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">op.grade.faculty</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+    </data>
+</odoo>

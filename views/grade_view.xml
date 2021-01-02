@@ -1,0 +1,102 @@
+<odoo>
+    <data>
+        <record model="ir.ui.view" id="grade_form">
+            <field name="name">op.grade.form</field>
+            <field name="model">op.grade</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <group col="6" colspan="6">
+                                <field name="session"/>
+                                <field name="course"/>
+                                <field name="batch"/>
+                            </group>
+                            <group col="4" colspan="4">
+                                <field name="subject"/>
+                                <field name="student"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="attendance_grade"/>
+                            <field name="daily_grade"/>
+                            <field name="homework_grade"/>
+                            <field name="exam_grade"/>
+                            <field name="final_grade"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="grade_tree">
+            <field name="name">op.grade.tree</field>
+            <field name="model">op.grade</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="session"/>
+                    <field name="course"/>
+                    <field name="batch"/>
+                    <field name="faculty"/>
+                    <field name="student"/>
+                    <field name="subject"/>
+                    <field name="attendance_grade"/>
+                    <field name="daily_grade"/>
+                    <field name="homework_grade"/>
+                    <field name="exam_grade"/>
+                    <field name="final_grade"/>
+                </tree>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="grade_action">
+            <field name="name">Grade</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">op.grade</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <!--  configuration -->
+        <record id="grade_config_form" model="ir.ui.view">
+            <field name="name">op.grade.configuration.form</field>
+            <field name="model">op.grade.configuration</field>
+            <field name="arch" type="xml">
+                <form string="Sessions">
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="session"/>
+                            <field name="course"/>
+                            <field name="batch" context="{'course_id': course,'get_parent_batch':1}"/>
+                            <field name="faculty"/>
+                            <field name="subject"/>
+                            <field name="grade_percent"/>
+                        </group>
+                        <group col="8" colspan="8">
+                            <field name="attendance_percent"/>
+                            <field name="daily_percent"/>
+                            <field name="homework_percent"/>
+                            <field name="exam_percent"/>
+                        </group>
+                    </sheet>
+                    <footer groups="base.group_user">
+                        <button string="Proceed" type="object" name="generate_grades" class="oe_highlight"/>
+                        <button special="cancel" string="Close" type="object"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="grade_config_action">
+            <field name="name">Generate Grade</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">op.grade.configuration</field>
+            <field name="binding_view_types">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.actions.act_window.view" id="grade_config_action_form">
+            <field name="act_window_id" ref="grade_config_action"/>
+            <field name="sequence" eval="20"/>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="grade_config_form"/>
+        </record>
+    </data>
+</odoo>
